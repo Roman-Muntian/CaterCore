@@ -1,0 +1,89 @@
+{% load static tailwind_tags i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Catering Service{% endblock %}</title>
+
+    {% tailwind_css %}
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <meta name="htmx-config" content='{"csrfToken": "{{ csrf_token }}"}'>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-100 text-gray-900" 
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    <div id="modal-container"></div>
+
+    <div class="htmx-indicator fixed top-0 left-0 w-full h-1 bg-blue-500 z-50"></div>
+
+    <header class="bg-white shadow-md sticky top-0 z-40" 
+            x-data="{ mobileMenuOpen: false }">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'catalog:index' %}" 
+               class="text-2xl font-bold text-blue-600"
+               hx-get="{% url 'catalog:index' %}"
+               hx-target="#main-content"
+               hx-push-url="true">
+                CATERING
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="{% url 'catalog:index' %}" class="hover:text-blue-600">{% trans "Меню" %}</a>
+                <a href="/about-us/" class="hover:text-blue-600">{% trans "Про нас" %}</a>
+                <a href="/contact/" class="hover:text-blue-600">{% trans "Контакти" %}</a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-4">
+                {% include "partials/auth_links.html" %}
+
+                {% include "partials/cart_icon.html" %}
+            </div>
+
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" 
+             class="md:hidden bg-white shadow-lg p-4 space-y-4">
+            <a href="{% url 'catalog:index' %}" class="block">{% trans "Меню" %}</a>
+            <a href="/about-us/" class="block">{% trans "Про нас" %}</a>
+            <a href="/contact/" class="block">{% trans "Контакти" %}</a>
+            <hr>
+            {% include "partials/auth_links.html" %}
+            {% include "partials/cart_icon.html" %}
+        </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto p-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12 p-8">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">CATERING</h3>
+                <p>{% trans "Смачні рішення для ваших подій." %}</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-3">{% trans "Сторінки" %}</h4>
+                <ul class="space-y-2">
+                    <li><a href="/about-us/" class="hover:underline">{% trans "Про нас" %}</a></li>
+                    <li><a href="/faq/" class="hover:underline">{% trans "FAQ" %}</a></li>
+                </ul>
+            </div>
+            <div>
+                {% include "partials/language_switcher.html" %}
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

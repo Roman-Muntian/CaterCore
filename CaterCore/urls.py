@@ -13,11 +13,11 @@ urlpatterns = [
 
 # Маршрути, що підтримують переклад
 urlpatterns += i18n_patterns(
-    # path('users/', include('users.urls', namespace='users')),
-    # path('cart/', include('cart.urls', namespace='cart')),
-    # path('orders/', include('orders.urls', namespace='orders')),
-    # path('reviews/', include('reviews.urls', namespace='reviews')),
-    # path('', include('catalog.urls', namespace='catalog')),
+    path('users/', include('users.urls', namespace='users')),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
+    path('reviews/', include('reviews.urls', namespace='reviews')),
+    path('', include('catalog.urls', namespace='catalog')),
     
     # Flatpages (має бути останнім)
     # path('', include('django.contrib.flatpages.urls')),
