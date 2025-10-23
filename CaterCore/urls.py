@@ -7,8 +7,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # # Вебхуки та API поза i18n
-    # path('services/', include('services.urls', namespace='services')),
+    # Вебхуки та API поза i18n
+    path('services/', include('services.urls', namespace='services')),
 ]
 
 # Маршрути, що підтримують переклад
@@ -20,7 +20,7 @@ urlpatterns += i18n_patterns(
     path('', include('catalog.urls', namespace='catalog')),
     
     # Flatpages (має бути останнім)
-    # path('', include('django.contrib.flatpages.urls')),
+    path('', include('django.contrib.flatpages.urls')),
 )
 
 # if settings.DEBUG:

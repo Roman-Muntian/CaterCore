@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     # Сторонні додатки
     'tailwind',
     'django_htmx',
-    # 'modeltranslation',
+    'modeltranslation',
     # 'admin_charts',
 
     # Наші додатки
