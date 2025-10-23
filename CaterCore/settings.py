@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'tailwind',
     'django_htmx',
     'modeltranslation',
-    # 'admin_charts',
+    'admin_charts',
 
     # Наші додатки
     'theme',

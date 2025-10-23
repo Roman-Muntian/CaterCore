@@ -39,3 +39,21 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': ('status', 'total_price', 'stripe_payment_intent_id', 'heleket_payment_id')
         }),
     )
+    
+# orders/admin.py
+# ... (існуючий код OrderItemInline, OrderAdmin) ...
+
+# --- Реєстрація графіків ---
+try:
+    # Імпортуємо класи графіків з вашого файлу charts.py
+    # Важливо: Шлях імпорту може бути 'CaterCore.charts', якщо 'CaterCore' - це назва вашого кореневого пакету проєкту
+    from CaterCore.charts import OrdersPerDayChart, RevenuePerDayChart 
+
+    admin.site.register(OrdersPerDayChart)
+    admin.site.register(RevenuePerDayChart)
+    print("Admin charts registered successfully.") # Додаємо для діагностики
+except ImportError as e:
+     print(f"Warning: Could not import or register admin charts: {e}") 
+     # Можна додати більш детальне логування помилки імпорту
+except Exception as e:
+    print(f"An unexpected error occurred during chart registration: {e}")

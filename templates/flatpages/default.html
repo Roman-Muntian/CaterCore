@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ flatpage.title }} - {% trans "Catering Service" %}{% endblock %}
+
+{% block content %}
+    <div class="bg-white p-6 md:p-10 rounded-lg shadow-lg max-w-4xl mx-auto prose lg:prose-xl">
+        <h1>{{ flatpage.title }}</h1>
+        {{ flatpage.content|safe }} 
+    </div>
+{% endblock %}
