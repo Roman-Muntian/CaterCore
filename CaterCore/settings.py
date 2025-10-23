@@ -143,3 +143,13 @@ X_FRAME_OPTIONS = 'DENY'
 
 # settings.py
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+# config/settings.py (додайте або змініть)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # Або sendgrid_backend.SendgridBackend, якщо використовуєте їх бібліотеку
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey' # Це стандарт для SendGrid
+EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@yourdomain.com') # Встановіть email за замовчуванням

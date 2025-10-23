@@ -1,0 +1,14 @@
+{% load i18n %}
+<h1>{% trans "Дякуємо за замовлення!" %}</h1>
+<p>{% blocktrans with order_id=order.id %}Ваше замовлення #{{ order_id }} прийнято.{% endblocktrans %}</p>
+<p>{% trans "Статус" %}: {{ order.get_status_display }}</p>
+<p>{% trans "Сума" %}: {{ order.total_price }} zł</p>
+<p>{% trans "Адреса доставки" %}: {{ order.delivery_address }}</p>
+<p>{% trans "Дата та час" %}: {{ order.delivery_date }} {{ order.delivery_time }}</p>
+
+<h2>{% trans "Склад замовлення" %}:</h2>
+<ul>
+{% for item in order.items.all %}
+    <li>{{ item.dish.name }} x {{ item.quantity }} - {{ item.price }} zł</li>
+{% endfor %}
+</ul>
