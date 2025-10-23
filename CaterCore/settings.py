@@ -22,19 +22,20 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 
     # Сторонні додатки
-    # 'tailwind',
-    # 'django_htmx',
+    'tailwind',
+    'django_htmx',
     # 'modeltranslation',
     # 'admin_charts',
 
     # Наші додатки
-    # 'users.apps.UsersConfig',
-    # 'catalog.apps.CatalogConfig',
-    # 'cart.apps.CartConfig',
-    # 'orders.apps.OrdersConfig',
-    # 'services.apps.ServicesConfig',
-    # 'reviews.apps.ReviewsConfig',
-    # 'pages.apps.PagesConfig',
+    'theme',
+    'users.apps.UsersConfig',
+    'catalog.apps.CatalogConfig',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
+    'services.apps.ServicesConfig',
+    'reviews.apps.ReviewsConfig',
+    'pages.apps.PagesConfig',
 ]
 
 # Налаштування Tailwind
@@ -90,7 +91,7 @@ DATABASES = {
     }
 }
 
-# AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # --- Локалізація (PL, EN, RU) ---
 LANGUAGE_CODE = 'en'
@@ -139,3 +140,6 @@ SESSION_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
+
+# settings.py
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"

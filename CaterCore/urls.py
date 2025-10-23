@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # # Вебхуки та API поза i18n
     # path('services/', include('services.urls', namespace='services')),
 ]
@@ -19,7 +19,7 @@ urlpatterns += i18n_patterns(
     # path('reviews/', include('reviews.urls', namespace='reviews')),
     # path('', include('catalog.urls', namespace='catalog')),
     
-    # # Flatpages (має бути останнім)
+    # Flatpages (має бути останнім)
     # path('', include('django.contrib.flatpages.urls')),
 )
 
