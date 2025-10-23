@@ -1,0 +1,6 @@
+<span id="cart-icon" 
+      hx-get="{% url 'cart:cart_icon' %}" 
+      hx-trigger="update-cart-icon from:body" 
+      hx-swap="outerHTML">
+    Кошик ({{ total_items }})
+</span>
