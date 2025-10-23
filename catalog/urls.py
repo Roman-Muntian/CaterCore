@@ -5,10 +5,12 @@ from . import views
 app_name = 'catalog'
 
 urlpatterns = [
-    # Це URL, який ми використовуємо в base.html
+    # Головна сторінка каталогу (всі страви)
     path('', views.dish_list_view, name='index'), 
     
-    # Ми додамо їх пізніше, але вони потрібні для посилань
-    path('dish/<slug:slug>/', views.dish_detail_view, name='dish_detail'),
+    # Сторінка категорії
     path('category/<slug:category_slug>/', views.dish_list_view, name='category_detail'),
+    
+    # Сторінка деталей страви
+    path('dish/<slug:slug>/', views.dish_detail_view, name='dish_detail'),
 ]
