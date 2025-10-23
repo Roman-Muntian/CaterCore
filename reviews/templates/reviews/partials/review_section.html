@@ -1,0 +1,47 @@
+{% load i18n %}
+<h3 class="text-xl font-semibold mb-4">{% trans "Відгуки" %} ({{ reviews.count }})</h3>
+
+{% if user.is_authenticated %}
+<form hx-post="{% url 'reviews:add_review' dish.id %}" 
+      hx-target="#reviews-section" 
+      hx-swap="innerHTML" 
+      class="mb-6 p-4 border rounded-lg bg-gray-50">
+    {% csrf_token %}
+
+    {% if review_form.errors %}
+        <div class_="text-red-500">{{ review_form.errors }}</div>
+    {% endif %}
+
+    <p class="font-medium">{% trans "Залишити свій відгук:" %}</p>
+
+    <div class="mt-2 space-y-2">
+        <select name="rating" class="form-select w-full rounded">
+            <option value="5">5 ★★★★★</option>
+            <option value="4">4 ★★★★☆</option>
+            <option value="3">3 ★★★☆☆</option>
+            <option value="2">2 ★★☆☆☆</option>
+            <option value="1">1 ★☆☆☆☆</option>
+        </select>
+        <textarea name="comment" rows="3" class="form-textarea w-full rounded" placeholder="{% trans 'Ваш коментар...' %}"></textarea>
+    </div>
+
+    <button type="submit" class="mt-2 bg-green-500 text-white py-2 px-4 rounded">
+        {% trans "Надіслати" %}
+    </button>
+</form>
+{% else %}
+<p class="mb-4">{% trans "Будь ласка," %} <a href="{% url 'users:login' %}" class="text-blue-500 underline">{% trans "увійдіть" %}</a>, {% trans "щоб залишити відгук." %}</p>
+{% endif %}
+
+<div class="space-y-4">
+    {% for review in reviews %}
+    <div class="border-b pb-2">
+        <strong>{{ review.user.first_name|default:review.user.email }}</strong> 
+        <span class="text-yellow-500">({{ review.rating }}/5 ★)</span>
+        <p class="text-gray-700 my-1">{{ review.comment }}</p>
+        <span class="text-sm text-gray-500">{{ review.created_at|date:"d M Y" }}</span>
+    </div>
+    {% empty %}
+    <p>{% trans "На цю страву ще немає відгуків." %}</p>
+    {% endfor %}
+</div>

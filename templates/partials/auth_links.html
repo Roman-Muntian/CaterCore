@@ -1,0 +1,10 @@
+{% load i18n %}
+{% if user.is_authenticated %}
+    <a href="{% url 'users:profile' %}" class="hover:text-blue-600">{% trans "Профіль" %}</a>
+    <a href="{% url 'users:logout' %}" 
+       hx-post="{% url 'users:logout' %}"
+       class="hover:text-blue-600">{% trans "Вихід" %}</a>
+{% else %}
+    <a href="{% url 'users:login' %}" class="hover:text-blue-600">{% trans "Вхід" %}</a>
+    <a href="{% url 'users:register' %}" class="hover:text-blue-600">{% trans "Реєстрація" %}</a>
+{% endif %}

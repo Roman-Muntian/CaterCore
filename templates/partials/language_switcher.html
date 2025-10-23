@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="text-lg font-semibold mb-3">{% trans "Мова" %}</div>
+
+<form action="{% url 'set_language' %}" method="post" class="flex space-x-2">
+    {% csrf_token %}
+    
+    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}">
+    
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    
+    {% for lang_code, lang_name in LANGUAGES %}
+        <button type="submit" name="language" value="{{ lang_code }}" 
+                class="uppercase font-bold {% if lang_code == LANGUAGE_CODE %}text-blue-400{% else %}text-white hover:underline{% endif %}">
+            {{ lang_code }}
+        </button>
+    {% endfor %}
+</form>
