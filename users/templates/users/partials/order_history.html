@@ -1,12 +1,13 @@
+{% load i18n %}
 {% for order in orders %}
 <div class="border p-4 rounded-lg shadow-sm">
-    <div class="flex justify-between items-center">
-        <span class="font-bold">Замовлення #{{ order.id }}</span>
+    <div class="flex justify-between items-center mb-2">
+        <span class="font-bold">{% trans "Замовлення" %} #{{ order.id }}</span>
         <span class="text-sm text-gray-600">{{ order.created_at|date:"d M Y, H:i" }}</span>
     </div>
-    <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
-    <p><strong>Сума:</strong> {{ order.total_price }} zł</p>
+    <p><strong>{% trans "Статус" %}:</strong> {{ order.get_status_display }}</p>
+    <p><strong>{% trans "Сума" %}:</strong> {{ order.total_price }} zł</p>
     </div>
 {% empty %}
-<p>У вас ще немає замовлень.</p>
+<p>{% trans "У вас ще немає замовлень." %}</p>
 {% endfor %}

@@ -1,0 +1,14 @@
+{% load i18n %}
+<h2 class="text-xl font-semibold mb-4">{% trans "Ваші дані" %}</h2>
+<div class="space-y-2">
+    <p><strong>{% trans "Email" %}:</strong> {{ user.email }}</p>
+    <p><strong>{% trans "Ім'я" %}:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>{% trans "Телефон" %}:</strong> {{ user.phone_number|default:_("Не вказано") }}</p>
+</div>
+<button 
+    hx-get="{% url 'users:profile_edit' %}"
+    hx-target="#profile-details-container"
+    hx-swap="innerHTML"
+    class="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+    {% trans "Редагувати" %}
+</button>
