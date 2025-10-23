@@ -1,0 +1,73 @@
+{% load i18n %}
+<form id="checkout-form" 
+      hx-post="{% url 'orders:checkout' %}"
+      hx-target="#main-content" 
+      hx-swap="innerHTML"
+      class="space-y-4">
+      
+    {% csrf_token %}
+    
+    {% if form.errors or error_message %}
+    <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        <p>{% trans "Будь ласка, виправте помилки нижче:" %}</p>
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            {% if field.errors %}
+                <p>{{ field.label }}: {{ field.errors|striptags }}</p>
+            {% endif %}
+        {% endfor %}
+        {% if error_message %}<p>{{ error_message }}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    <h3 class="text-lg font-semibold">{% trans "Контактна інформація" %}</h3>
+    <div>
+        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.first_name.label }}</label>
+        {{ form.first_name }}
+    </div>
+    <div>
+        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.last_name.label }}</label>
+        {{ form.last_name }}
+    </div>
+     <div>
+        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.email.label }}</label>
+        {{ form.email }}
+    </div>
+     <div>
+        <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.phone.label }}</label>
+        {{ form.phone }}
+    </div>
+    
+    <h3 class="text-lg font-semibold mt-4">{% trans "Адреса доставки" %}</h3>
+    <div>
+        <label for="{{ form.delivery_address.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.delivery_address.label }}</label>
+        {{ form.delivery_address }}
+    </div>
+     <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label for="{{ form.delivery_date.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.delivery_date.label }}</label>
+            {{ form.delivery_date }}
+        </div>
+        <div>
+            <label for="{{ form.delivery_time.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.delivery_time.label }}</label>
+            {{ form.delivery_time }}
+        </div>
+     </div>
+
+    <h3 class="text-lg font-semibold mt-4">{% trans "Оплата" %}</h3>
+    
+    <input type="hidden" name="payment_provider" id="payment_provider_input">
+
+    <div class="grid grid-cols-2 gap-4">
+        <button type="submit" 
+                onclick="document.getElementById('payment_provider_input').value='stripe'"
+                class="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 font-semibold">
+            {% trans "Оплатити Stripe" %} (Card/Blik)
+        </button>
+        <button type="submit" 
+                onclick="document.getElementById('payment_provider_input').value='heleket'"
+                class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 font-semibold">
+            {% trans "Оплатити Heleket" %} (Crypto)
+        </button>
+    </div>
+</form>

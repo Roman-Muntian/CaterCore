@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Оплату скасовано" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center bg-white p-10 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-red-600 mb-4">{% trans "Оплату було скасовано" %}</h1>
+    <p class="text-lg mb-4">
+      {% blocktrans with order_id=order.id %}Ваше замовлення #{{ order_id }} не було оплачено.{% endblocktrans %}
+    </p>
+    <p class="mb-6">
+        {% trans "Ви можете спробувати оплатити його знову зі сторінки історії замовлень або повернутися до кошика." %}
+    </p>
+    <div class="flex justify-center space-x-4">
+        <a href="{% url 'orders:checkout' %}" 
+           class="bg-yellow-500 text-white py-2 px-6 rounded font-semibold hover:bg-yellow-600"
+           hx-get="{% url 'orders:checkout' %}"
+           hx-target="#main-content"
+           hx-push-url="true">
+            {% trans "Повернутися до оформлення" %}
+        </a>
+        <a href="{% url 'catalog:index' %}" 
+           class="bg-blue-500 text-white py-2 px-6 rounded font-semibold hover:bg-blue-600"
+           hx-get="{% url 'catalog:index' %}"
+           hx-target="#main-content"
+           hx-push-url="true">
+            {% trans "До каталогу" %}
+        </a>
+    </div>
+</div>
+{% endblock %}
